@@ -2,25 +2,49 @@ function setup() {
   createCanvas(1000, 6000);
 }
 function character(x, y, s) {
-  // Jetpack flames
-  noStroke();
-  fill(224, 112, 0);
-  triangle(
-    x + 30 * s,
-    y + 300 * s,
-    x + 54 * s,
-    y + 310 * s,
-    x + 35 * s,
-    y + 342 * s
-  );
-  triangle(
-    x + 140 * s,
-    y + 300 * s,
-    x + 174 * s,
-    y + 300 * s,
-    x + 175 * s,
-    y + 337 * s
-  );
+  let flamesOn = false;
+
+  if (flamesOn) {
+    //  function character(x, y, s) {
+    // Jetpack flames
+    noStroke();
+    fill(224, 112, 0);
+    triangle(
+      x + 30 * s,
+      y + 300 * s,
+      x + 54 * s,
+      y + 310 * s,
+      x + 35 * s,
+      y + 342 * s
+    );
+    triangle(
+      x + 140 * s,
+      y + 300 * s,
+      x + 174 * s,
+      y + 300 * s,
+      x + 175 * s,
+      y + 337 * s
+    );
+  } else {
+    noStroke();
+    fill(224, 112, 0);
+    triangle(
+      x + 30 * s,
+      y + 300 * s,
+      x + 54 * s,
+      y + 310 * s,
+      x + 40 * s,
+      y + 315 * s
+    );
+    triangle(
+      x + 140 * s,
+      y + 300 * s,
+      x + 174 * s,
+      y + 300 * s,
+      x + 160 * s,
+      y + 317 * s
+    );
+  }
 
   endShape();
   // Jetpack
@@ -213,10 +237,8 @@ function character(x, y, s) {
 }
 
 character(100, 100, 0.4);
+
 function draw() {
   background(111, 165, 252);
-  character(100, 100, 0.4);
-
-
-  
+  character(100, 100, 0.6);
 }
