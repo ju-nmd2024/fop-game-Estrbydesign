@@ -4,7 +4,7 @@ let characterY = 100;
 
 // Game logic
 let velocityY = 0.2;
-let acceleration = 0.5;
+let acceleration = 0.2;   
 
 // Game state
 let gameState = true;
@@ -248,18 +248,45 @@ function character(x, y, s) {
   );
 }
 
-character(100, 100, 0.4);
 
 let y = 100;
+let x = 100;
 
 function draw() {
   background(111, 165, 252);
   frameRate(30);
-  character(100, y, 0.6);
+  character(characterX, characterY, 0.4);
 
-  y = y + 15;
+  if (gameState === true) {
+  
+    y = y + 15;
+    x = x + 25; 
 
-  // gravity
-  characterY = characterY + velocityY;
-  velocityY = velocityY + acceleration;
-}
+    // gravity
+    characterY = characterY + velocityY;
+    velocityY = velocityY + acceleration;
+   
+    // Decrease velocity
+    if (keyIsDown(UP_ARROW)) {
+      velocityY = velocityY - 0.5;
+    }
+
+    // Left key
+    if (keyIsDown(LEFT_ARROW)){
+      characterX = characterX - 20;
+    }
+
+    // Right Key 
+    if (keyIsDown(RIGHT_ARROW)){
+      characterX = characterX + 20;
+    }
+
+    if (characterY > 480){  
+      gameState = false;
+      console.log(" EGO DEATH");
+    }
+
+
+  } 
+  
+} 
