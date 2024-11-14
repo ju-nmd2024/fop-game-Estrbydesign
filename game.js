@@ -1,8 +1,20 @@
+// position variables
+let characterX = 100;
+let characterY = 100;
+
+// Game logic
+let velocityY = 0.2;
+let acceleration = 0.5;
+
+// Game state
+let gameState = true;
+
 function setup() {
   createCanvas(1000, 6000);
 }
+
 function character(x, y, s) {
-  let flamesOn = false;
+  let flamesOn = true;
 
   if (flamesOn) {
     //  function character(x, y, s) {
@@ -238,7 +250,16 @@ function character(x, y, s) {
 
 character(100, 100, 0.4);
 
+let y = 100;
+
 function draw() {
   background(111, 165, 252);
-  character(100, 100, 0.6);
+  frameRate(30);
+  character(100, y, 0.6);
+
+  y = y + 15;
+
+  // gravity
+  characterY = characterY + velocityY;
+  velocityY = velocityY + acceleration;
 }
