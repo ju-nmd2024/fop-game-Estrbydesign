@@ -1,6 +1,7 @@
 // position variables
 let characterX = 100;
 let characterY = 100;
+let flamesOn = false;
 
 let platformX = 100;
 let platformY = 100;
@@ -24,8 +25,6 @@ function setup() {
 
 // character
 function character(x, y, s) {
-  let flamesOn = true;
-
   if (flamesOn) {
     //  function character(x, y, s) {
     // Jetpack flames
@@ -290,6 +289,9 @@ function draw() {
     // Decrease velocity
     if (keyIsDown(UP_ARROW)) {
       velocityY = velocityY - 0.5;
+      flamesOn = true;
+    } else {
+      flamesOn = false;
     }
 
     // Left key
@@ -303,8 +305,23 @@ function draw() {
     }
     // Game over
     if (characterY > 650) {
-      gameState = false;
-      console.log(" EGO DEATH");
+      console.log("The landing velocity = " + velocityY);
+      if (velocityY > 4) {
+        // gameState = true;
+        gameState = false;
+        console.log("GAME OVER");
+      } else {
+        console.log("YOU WIN");
+        gameState = false;
+
+        //   gameState = false;
+        //   console.log(" EGO DEATH");
+        // } else if (velocityY > 0.3){
+        //   gameState = true;
+        //   console.log("YOU WIN");
+        // } else {
+        // gameState = false;
+      }
     }
   }
 }
@@ -316,6 +333,6 @@ function mousePressed() {
     mouseY > buttonY &&
     mouseY < buttonY + rectHeight
   ) {
-    console.log(" Restart Game");
+    console.log(" Restart Game"); 
   }
 }
