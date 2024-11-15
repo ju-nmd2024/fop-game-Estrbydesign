@@ -1,10 +1,14 @@
 // position variables
-let characterX = 100;
+let characterX = 320;
 let characterY = 100;
 let flamesOn = false;
 
-let platformX = 100;
+// Platform logic
+let platformX = 320;
 let platformY = 100;
+let platformWidth = 400;
+let platformHeight = 50;
+//let platformWidth
 
 // Restart button logic
 let buttonX = 200;
@@ -23,6 +27,11 @@ function setup() {
   createCanvas(700, 900);
 }
 
+/*function startScreen() {
+  fill(255);
+  ellipse(300, 450, 200, 150);
+  ellipse(0, 545, 200, 150);
+}*/
 // character
 function character(x, y, s) {
   if (flamesOn) {
@@ -258,6 +267,7 @@ function character(x, y, s) {
 }
 // landing platform
 function platform(platformX, platformY, s) {
+  noStroke();
   fill(26, 107, 24);
   rect(platformX + 5 * s, platformY + 570 * s, 400 * s, 50 * s);
   fill(209, 148, 82);
@@ -303,26 +313,28 @@ function draw() {
     if (keyIsDown(RIGHT_ARROW)) {
       characterX = characterX + 10;
     }
-    // Game over
+    // Game over mechanics (help from teaching assistants)
     if (characterY > 650) {
-      console.log("The landing velocity = " + velocityY);
+      if (characterY > 700 && characterX >= 320 && characterX <= 401){
+        gameState = false;
+        
+      }
+       
+        
+    
+          //if (characterX > 400 && )
+          // add characterX bigger and smaller... ;)
+        console.log("The landing velocity = " + velocityY);
       if (velocityY > 4) {
         // gameState = true;
         gameState = false;
         console.log("GAME OVER");
       } else {
         console.log("YOU WIN");
-        gameState = false;
-
-        //   gameState = false;
-        //   console.log(" EGO DEATH");
-        // } else if (velocityY > 0.3){
-        //   gameState = true;
-        //   console.log("YOU WIN");
-        // } else {
-        // gameState = false;
+        gameState = false;  
       }
     }
+    //startScreen();
   }
 }
 
@@ -333,6 +345,6 @@ function mousePressed() {
     mouseY > buttonY &&
     mouseY < buttonY + rectHeight
   ) {
-    console.log(" Restart Game"); 
+    console.log(" Restart Game");
   }
 }
