@@ -2,17 +2,27 @@
 let characterX = 100;
 let characterY = 100;
 
+let platformX = 100;
+let platformY = 100;
+
+// Restart button logic
+let buttonX = 200;
+let buttonY = 200;
+let rectWidth = 150;
+let rectHeight = 50;
+
 // Game logic
 let velocityY = 0.2;
-let acceleration = 0.2;   
+let acceleration = 0.2;
 
 // Game state
 let gameState = true;
 
 function setup() {
-  createCanvas(1000, 6000);
+  createCanvas(700, 900);
 }
 
+// character
 function character(x, y, s) {
   let flamesOn = true;
 
@@ -247,46 +257,65 @@ function character(x, y, s) {
     y + 442 * s
   );
 }
+// landing platform
+function platform(platformX, platformY, s) {
+  fill(26, 107, 24);
+  rect(platformX + 5 * s, platformY + 570 * s, 400 * s, 50 * s);
+  fill(209, 148, 82);
+  rect(platformX + 5 * s, platformY + 605 * s, 400 * s, 50 * s);
+}
 
+function button(buttonX, buttonY, s) {
+  fill(255);
+  rect(buttonX * s, buttonY * s, rectWidth * s, rectHeight * s, 40 * s, 40 * s);
+}
 
 let y = 100;
 let x = 100;
 
 function draw() {
-  background(111, 165, 252);
+  background(124, 171, 242);
+  platform(platformX, platformY + 618, 0.2);
   frameRate(30);
   character(characterX, characterY, 0.4);
 
   if (gameState === true) {
-  
     y = y + 15;
-    x = x + 25; 
+    x = x + 25;
 
     // gravity
     characterY = characterY + velocityY;
     velocityY = velocityY + acceleration;
-   
+
     // Decrease velocity
     if (keyIsDown(UP_ARROW)) {
       velocityY = velocityY - 0.5;
     }
 
     // Left key
-    if (keyIsDown(LEFT_ARROW)){
-      characterX = characterX - 20;
+    if (keyIsDown(LEFT_ARROW)) {
+      characterX = characterX - 10;
     }
 
-    // Right Key 
-    if (keyIsDown(RIGHT_ARROW)){
-      characterX = characterX + 20;
+    // Right Key
+    if (keyIsDown(RIGHT_ARROW)) {
+      characterX = characterX + 10;
     }
-
-    if (characterY > 480){  
+    // Game over
+    if (characterY > 650) {
       gameState = false;
       console.log(" EGO DEATH");
     }
+  }
+}
 
-
-  } 
-  
-} 
+function mousePressed() {
+  if (
+    mouseX > buttonX &&
+    mouseX < buttonX + rectWidth &&
+    mouseY > buttonY &&
+    mouseY < buttonY + rectHeight
+  ) {
+    console.log(" Restart Game");
+  }
+}
