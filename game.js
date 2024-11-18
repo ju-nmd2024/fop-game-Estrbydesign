@@ -27,11 +27,22 @@ function setup() {
   createCanvas(700, 900);
 }
 
-/*function startScreen() {
+function startScreen() {
+  background(198, 130, 260);
   fill(255);
-  ellipse(300, 450, 200, 150);
-  ellipse(0, 545, 200, 150);
-}*/
+  rect(170, 350, 400,300);
+  textSize(32);
+  fill(198, 130, 260);
+  textAlign(CENTER,CENTER);
+  text("JETPACKED", width/2 + 20,height/2 + 56);
+}
+
+function gameScreen(){
+
+function resultScreen(){
+
+}
+}
 // character
 function character(x, y, s) {
   if (flamesOn) {
@@ -281,12 +292,14 @@ function button(buttonX, buttonY, s) {
 
 let y = 100;
 let x = 100;
+let state = "start";
 
 function draw() {
   background(124, 171, 242);
   platform(platformX, platformY + 618, 0.2);
   frameRate(30);
   character(characterX, characterY, 0.4);
+  startScreen();
 
   if (gameState === true) {
     y = y + 15;
@@ -313,28 +326,69 @@ function draw() {
     if (keyIsDown(RIGHT_ARROW)) {
       characterX = characterX + 10;
     }
-    // Game over mechanics (help from teaching assistants)
-    if (characterY > 650) {
-      if (characterY > 700 && characterX >= 320 && characterX <= 401){
-        gameState = false;
-        
-      }
+
+    /*if(characterY > 650 && gameState === false){
+       if(characterX > 201 && characterX < 401){
+         console.log("YOU LOSE");
        
-        
-    
-          //if (characterX > 400 && )
-          // add characterX bigger and smaller... ;)
+      } else if (velocityY > 6){  
         console.log("The landing velocity = " + velocityY);
-      if (velocityY > 4) {
-        // gameState = true;
+        console.log("YOU LOST");
         gameState = false;
-        console.log("GAME OVER");
+  
       } else {
-        console.log("YOU WIN");
-        gameState = false;  
+        console.log(" YOU WON");  
+        gameState = false;      
       }
     }
-    //startScreen();
+*/
+
+
+
+
+  
+  /*  if (characterY >= 650 && characterY >= 670){
+    if ((characterX >= 321 && characterX <= 402 )) {
+      if (velocityY > 4)
+        console.log("The landing velocity = " + velocityY);
+        gameState = false;
+        console.log("GAME OVER");
+    } else if (characterX >= 322 && characterX <= 401){
+      console.log("YOU WIN" );
+      gameState = false;    
+    } 
+      
+    
+  
+
+  }
+*/
+
+
+
+    // Game over mechanics (help from teaching assistants)
+    if (characterY > 650) {
+      if (characterX >= 320 && characterX <= 401) {
+        gameState = false;
+      }
+      //if (characterX > 400 && )
+      // add characterX bigger and smaller... ;)
+      // gameState = true;
+      console.log("The landing velocity = " + velocityY);
+      if (velocityY > 4) {
+        gameState = false;
+        console.log("GAME OVER");
+      } else {  
+        console.log("YOU WIN");
+        gameState = false;
+      } 
+    }
+      
+
+    /*if (state === "start"){ 
+      startScreen = true */
+
+    
   }
 }
 
