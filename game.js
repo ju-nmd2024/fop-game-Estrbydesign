@@ -11,9 +11,9 @@ let platformHeight = 50;
 //let platformWidth
 
 // Restart button logic
-let buttonX = 200;
-let buttonY = 200;
-let rectWidth = 150;
+let buttonX = 225;
+let buttonY = 530;
+let rectWidth = 180;
 let rectHeight = 50;
 
 // Game logic
@@ -29,19 +29,33 @@ function setup() {
 
 function startScreen() {
   background(198, 130, 260);
+  // cloud
   fill(255);
-  rect(170, 350, 400,300);
-  textSize(32);
+  ellipse(340, 339, 250, 250);
+  ellipse(340, 389, 250, 250);
+  ellipse(203, 400, 250, 250);
+  ellipse(183, 509, 250, 250);
+  ellipse(503, 399, 250, 250);
+  ellipse(493, 509, 250, 250);
+  ellipse(350, 569, 250, 250);
+  // start screen text
+  textSize(62);
   fill(198, 130, 260);
-  textAlign(CENTER,CENTER);
-  text("JETPACKED", width/2 + 20,height/2 + 56);
+  textAlign(CENTER, CENTER);
+  text("JETPACKED", width / 2, height / 2 - 15);
+  fill(158, 130, 260);
+  textAlign(CENTER, CENTER);
+  textSize(18);
+  text("Land safely without crashing", width / 2, height / 2 + 56);
+  text(
+    "Press the spacebar to slow down and arrows to tilt",
+    width / 2,
+    height / 2 + 86
+  );
 }
 
-function gameScreen(){
-
-function resultScreen(){
-
-}
+function gameScreen() {
+  function resultScreen() {}
 }
 // character
 function character(x, y, s) {
@@ -285,14 +299,19 @@ function platform(platformX, platformY, s) {
   rect(platformX + 5 * s, platformY + 605 * s, 400 * s, 50 * s);
 }
 
-function button(buttonX, buttonY, s) {
+function button(buttonX, buttonY) {
+  fill(120, 194, 180);
+  rect(buttonX, buttonY, rectWidth + 40, rectHeight, 40, 40);
   fill(255);
-  rect(buttonX * s, buttonY * s, rectWidth * s, rectHeight * s, 40 * s, 40 * s);
+  textAlign(CENTER, CENTER);
+  textSize(20);
+  text("START GAME", width / 2 - 10, height / 2 + 150);
 }
 
 let y = 100;
 let x = 100;
 let state = "start";
+let gameTimer = 0;
 
 function draw() {
   background(124, 171, 242);
@@ -300,6 +319,7 @@ function draw() {
   frameRate(30);
   character(characterX, characterY, 0.4);
   startScreen();
+  button(buttonX, buttonY);
 
   if (gameState === true) {
     y = y + 15;
@@ -343,11 +363,7 @@ function draw() {
     }
 */
 
-
-
-
-  
-  /*  if (characterY >= 650 && characterY >= 670){
+    /*  if (characterY >= 650 && characterY >= 670){
     if ((characterX >= 321 && characterX <= 402 )) {
       if (velocityY > 4)
         console.log("The landing velocity = " + velocityY);
@@ -364,8 +380,6 @@ function draw() {
   }
 */
 
-
-
     // Game over mechanics (help from teaching assistants)
     if (characterY > 650) {
       if (characterX >= 320 && characterX <= 401) {
@@ -378,17 +392,21 @@ function draw() {
       if (velocityY > 4) {
         gameState = false;
         console.log("GAME OVER");
-      } else {  
+      } else {
         console.log("YOU WIN");
         gameState = false;
-      } 
+      }
     }
-      
 
     /*if (state === "start"){ 
       startScreen = true */
-
-    
+  }
+  if (state === "START") {
+    startScreen();
+  } else if (state === "GAME") {
+    gameScreen();
+  } else if (state === "RESULT") {
+    resultScreen();
   }
 }
 
@@ -400,5 +418,15 @@ function mousePressed() {
     mouseY < buttonY + rectHeight
   ) {
     console.log(" Restart Game");
+  }
+}
+
+function mouseClicked() {
+  if (state === "start") {
+    state = "game";
+  } else if (state === "game") {
+    state === "result";
+  } else if (state === "result") {
+    state = "game";
   }
 }
