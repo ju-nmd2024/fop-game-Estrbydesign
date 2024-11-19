@@ -4,8 +4,8 @@ let characterY = 100;
 let flamesOn = false;
 
 // Platform logic
-let platformX = 320;
-let platformY = 100;
+let platformX = 290;
+let platformY = 603;
 let platformWidth = 400;
 let platformHeight = 50;
 //let platformWidth
@@ -21,7 +21,7 @@ let velocityY = 0.2;
 let acceleration = 0.2;
 
 // Game state
-let gameState = true;
+let gameState = false;
 
 function setup() {
   createCanvas(700, 900);
@@ -30,6 +30,7 @@ function setup() {
 function startScreen() {
   background(198, 130, 260);
   // cloud
+  noStroke();
   fill(255);
   ellipse(340, 339, 250, 250);
   ellipse(340, 389, 250, 250);
@@ -42,21 +43,20 @@ function startScreen() {
   textSize(62);
   fill(198, 130, 260);
   textAlign(CENTER, CENTER);
-  text("JETPACKED", width / 2, height / 2 - 15);
+  text("JETPACKED", width / 2, height / 2 + 25);
   fill(158, 130, 260);
   textAlign(CENTER, CENTER);
-  textSize(18);
-  text("Land safely without crashing", width / 2, height / 2 + 56);
+  textSize(17);
+  text("Land safely without crashing", width / 2, height / 2 + 96);
   text(
     "Press the spacebar to slow down and arrows to tilt",
     width / 2,
-    height / 2 + 86
+    height / 2 + 136
   );
+  // button startscreen
+  button(buttonX, buttonY);
 }
 
-function gameScreen() {
-  function resultScreen() {}
-}
 // character
 function character(x, y, s) {
   if (flamesOn) {
@@ -299,39 +299,88 @@ function platform(platformX, platformY, s) {
   rect(platformX + 5 * s, platformY + 605 * s, 400 * s, 50 * s);
 }
 
+function gameScreen() {
+  background(124, 171, 242);
+  character(characterX, characterY, 0.3);
+  platform(platformX, platformY, 0.3);
+}
+
+function loseScreen() {
+  background(128);
+  noStroke();
+  // cloud
+  fill(255);
+  ellipse(340, 339, 250, 250);
+  ellipse(340, 389, 250, 250);
+  ellipse(203, 400, 250, 250);
+  ellipse(183, 509, 250, 250);
+  ellipse(503, 399, 250, 250);
+  ellipse(493, 509, 250, 250);
+  ellipse(350, 569, 250, 250);
+  // start screen text
+  textSize(62);
+  fill(198, 130, 260);
+  textAlign(CENTER, CENTER);
+  text("YOU LOST :(", width / 2, height / 2 + 120);
+  fill(158, 130, 260);
+  textAlign(CENTER, CENTER);
+  textSize(18);
+  button(buttonX, buttonY);
+}
+function winScreen() {
+  background(124, 171, 242);
+  noStroke();
+  // cloud
+  fill(255);
+  ellipse(340, 339, 250, 250);
+  ellipse(340, 389, 250, 250);
+  ellipse(203, 400, 250, 250);
+  ellipse(183, 509, 250, 250);
+  ellipse(503, 399, 250, 250);
+  ellipse(493, 509, 250, 250);
+  ellipse(350, 569, 250, 250);
+  // start screen text
+  textSize(62);
+  fill(198, 130, 260);
+  textAlign(CENTER, CENTER);
+  text("YOU WIN :)", width / 2, height / 2 + 120);
+  fill(158, 130, 260);
+  textAlign(CENTER, CENTER);
+  textSize(18);
+  button(buttonX + 10, buttonY);
+}
+
 function button(buttonX, buttonY) {
   fill(120, 194, 180);
   rect(buttonX, buttonY, rectWidth + 40, rectHeight, 40, 40);
   fill(255);
   textAlign(CENTER, CENTER);
   textSize(20);
-  text("START GAME", width / 2 - 10, height / 2 + 150);
+  if (state === "start") {
+    text("START GAME", width / 2 - 10, height / 2 + 220);
+  } else if (state === "lose" || state === "win") {
+    text("TRY AGAIN", width / 2 - 5, height / 2 + 220);
+  }
 }
 
 let y = 100;
 let x = 100;
 let state = "start";
-let gameTimer = 0;
 
 function draw() {
-  background(124, 171, 242);
-  platform(platformX, platformY + 618, 0.2);
   frameRate(30);
-  character(characterX, characterY, 0.4);
-  startScreen();
-  button(buttonX, buttonY);
 
   if (gameState === true) {
     y = y + 15;
-    x = x + 25;
+    x = x + 15;
 
     // gravity
     characterY = characterY + velocityY;
     velocityY = velocityY + acceleration;
 
     // Decrease velocity
-    if (keyIsDown(UP_ARROW)) {
-      velocityY = velocityY - 0.5;
+    if (keyIsDown(32)) {
+      velocityY = velocityY - 0.9;
       flamesOn = true;
     } else {
       flamesOn = false;
@@ -347,66 +396,31 @@ function draw() {
       characterX = characterX + 10;
     }
 
-    /*if(characterY > 650 && gameState === false){
-       if(characterX > 201 && characterX < 401){
-         console.log("YOU LOSE");
-       
-      } else if (velocityY > 6){  
-        console.log("The landing velocity = " + velocityY);
-        console.log("YOU LOST");
-        gameState = false;
-  
-      } else {
-        console.log(" YOU WON");  
-        gameState = false;      
-      }
-    }
-*/
-
-    /*  if (characterY >= 650 && characterY >= 670){
-    if ((characterX >= 321 && characterX <= 402 )) {
-      if (velocityY > 4)
-        console.log("The landing velocity = " + velocityY);
-        gameState = false;
-        console.log("GAME OVER");
-    } else if (characterX >= 322 && characterX <= 401){
-      console.log("YOU WIN" );
-      gameState = false;    
-    } 
-      
-    
-  
-
-  }
-*/
-
     // Game over mechanics (help from teaching assistants)
     if (characterY > 650) {
       if (characterX >= 320 && characterX <= 401) {
         gameState = false;
       }
-      //if (characterX > 400 && )
-      // add characterX bigger and smaller... ;)
-      // gameState = true;
       console.log("The landing velocity = " + velocityY);
       if (velocityY > 4) {
         gameState = false;
         console.log("GAME OVER");
+        state = "lose";
       } else {
         console.log("YOU WIN");
         gameState = false;
+        state = "win";
       }
     }
-
-    /*if (state === "start"){ 
-      startScreen = true */
   }
-  if (state === "START") {
+  if (state === "start") {
     startScreen();
-  } else if (state === "GAME") {
+  } else if (state === "game") {
     gameScreen();
-  } else if (state === "RESULT") {
-    resultScreen();
+  } else if (state === "lose") {
+    loseScreen();
+  } else if (state === "win") {
+    winScreen();
   }
 }
 
@@ -417,16 +431,19 @@ function mousePressed() {
     mouseY > buttonY &&
     mouseY < buttonY + rectHeight
   ) {
-    console.log(" Restart Game");
+    if (state === "start") {
+      state = "game";
+      gameState = true;
+    } else if (state === "win" || state === "lose") {
+      state = "game";
+      resetGame();
+    }
   }
 }
 
-function mouseClicked() {
-  if (state === "start") {
-    state = "game";
-  } else if (state === "game") {
-    state === "result";
-  } else if (state === "result") {
-    state = "game";
-  }
+function resetGame() {
+  characterX = 100;
+  characterY = 100;
+  velocityY = 0.2;
+  gameState = true;
 }
