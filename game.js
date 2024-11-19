@@ -43,15 +43,15 @@ function startScreen() {
   textSize(62);
   fill(198, 130, 260);
   textAlign(CENTER, CENTER);
-  text("JETPACKED", width / 2, height / 2 + 25);
+  text("JETPACKED", width / 2, height / 2 - 25);
   fill(158, 130, 260);
   textAlign(CENTER, CENTER);
   textSize(17);
-  text("Land safely without crashing", width / 2, height / 2 + 96);
+  text("Land safely without crashing", width / 2, height / 2 + 36);
   text(
     "Press the spacebar to slow down and arrows to tilt",
     width / 2,
-    height / 2 + 136
+    height / 2 + 56
   );
   // button startscreen
   button(buttonX, buttonY);
@@ -321,7 +321,7 @@ function loseScreen() {
   textSize(62);
   fill(198, 130, 260);
   textAlign(CENTER, CENTER);
-  text("YOU LOST :(", width / 2, height / 2 + 120);
+  text("YOU LOST :(", width / 2, height / 2 - 25);
   fill(158, 130, 260);
   textAlign(CENTER, CENTER);
   textSize(18);
@@ -343,7 +343,7 @@ function winScreen() {
   textSize(62);
   fill(198, 130, 260);
   textAlign(CENTER, CENTER);
-  text("YOU WIN :)", width / 2, height / 2 + 120);
+  text("YOU WIN :)", width / 2, height / 2 - 25);
   fill(158, 130, 260);
   textAlign(CENTER, CENTER);
   textSize(18);
@@ -357,9 +357,9 @@ function button(buttonX, buttonY) {
   textAlign(CENTER, CENTER);
   textSize(20);
   if (state === "start") {
-    text("START GAME", width / 2 - 10, height / 2 + 220);
+    text("START GAME", width / 2 - 10, height / 2 + 105);
   } else if (state === "lose" || state === "win") {
-    text("TRY AGAIN", width / 2 - 5, height / 2 + 220);
+    text("TRY AGAIN", width / 2 - 5, height / 2 + 105);
   }
 }
 
